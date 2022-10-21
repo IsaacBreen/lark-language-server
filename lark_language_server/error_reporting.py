@@ -7,11 +7,10 @@ from .lark_grammar import lark_grammar_parser
 
 
 def user_repr(error: Union[UnexpectedToken]):
-    if isinstance(error, UnexpectedToken):
-        expected = ', '.join(error.accepts or error.expected)
-        return f"Unexpected token {str(error.token)!r}. Expected one of:\n{{{expected}}}"
-    else:
+    if not isinstance(error, UnexpectedToken):
         return str(error)
+    expected = ', '.join(error.accepts or error.expected)
+    return f"Unexpected token {str(error.token)!r}. Expected one of:\n{{{expected}}}"
 
 
 def get_diagnostics(doctext: str):
